@@ -1,33 +1,50 @@
-# My Terraform Module
+# AWS ECS Service Terraform module
 
-This Terraform module is meant to offer an easy interface to deploy a ECS Service.
+This Terraform module is meant to offer an easy interface to deploy a ECS Service/Task.
 
 ## Why do we need it?
 
-The idea is to abstract away from the user certain complexity so that he can, just by specifying few parameters, deploy something working while the module takes some opinionated decisions for him.
+The idea is to abstract away from the user certain complexity so that he can, just by specifying few parameters, deploy a working ECS Task while the module takes some opinionated decisions for him.
+
+The module provides support for:
+
+- Attaching to a Load Balancer target group (`lb_target_group_arn` parameter)
+- Attaching EFS volumes (`efs_volumes` parameter)
+- Executing SSM commands on the instance
+- Outputting logs to a separate CloudWatch Log Group
+- Passing secrets via SecretsManager
 
 ## Usage
 
-< describe the module minimal code required for a deployment >
+Here's an example of how you can use the module by specifying the required parameters.
 
-```hcl
-module "my_module_example" {
+```tf
+module "hello_world" {
+  source     = "github.com/tx-pts-dai/terraform-aws-ecs-service?ref=FUM-2424-create-ecs-service-module"
+  cluster_id = aws_ecs_cluster.my_cluster.id
+  subnet_ids = [
+    "subnet-abcdef12",
+    "subnet-34567890",
+  ]
+  name             = "hello-world"
+  image            = "ghcr.io/example/hello-world@latest"
+  container_cpu    = 256
+  container_memory = 512
+  container_port   = 8080
+  desired_replicas = 2
 }
 ```
 
 ## Explanation and description of interesting use-cases
 
-< create a h2 chapter for each section explaining special module concepts >
+The simplest use case is that you want to deploy a container in ECS. This module should help you in achieving that.
 
-## Examples
+## Examples (TODO)
 
 < if the folder `examples/` exists, put here the link to the examples subfolders with their descriptions >
 
-## Contributing
 
-< issues and contribution guidelines for public modules >
-
-### Pre-Commit
+## Pre-Commit
 
 Installation: [install pre-commit](https://pre-commit.com/) and execute `pre-commit install`. This will generate pre-commit hooks according to the config in `.pre-commit-config.yaml`
 
@@ -114,7 +131,7 @@ No modules.
 
 ## Authors
 
-Module is maintained by [Alfredo Gottardo](https://github.com/AlfGot), [David Beauvererd](https://github.com/Davidoutz), [Davide Cammarata](https://github.com/DCamma), [Demetrio Carrara](https://github.com/sgametrio) and [Roland Bapst](https://github.com/rbapst-tamedia)
+Module is maintained by [Alfredo Gottardo](https://github.com/AlfGot), [David Beauverd](https://github.com/Davidoutz), [Davide Cammarata](https://github.com/DCamma), [Demetrio Carrara](https://github.com/sgametrio) and [Roland Bapst](https://github.com/rbapst-tamedia)
 
 ## License
 
