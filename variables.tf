@@ -95,4 +95,5 @@ variable "efs_volumes" {
     root            = string
     access_point_id = string
   }))
+  default = {}
 }
