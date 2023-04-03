@@ -1,4 +1,9 @@
 # Allow task execution - required
+moved {
+  from = aws_iam_role.ecs_task_execution
+  to   = aws_iam_role.this
+}
+
 resource "aws_iam_role" "this" {
   name               = var.name
   assume_role_policy = data.aws_iam_policy_document.assume_role.json

@@ -66,9 +66,9 @@ No modules.
 
 | Name | Type |
 |------|------|
-| [aws_cloudwatch_log_group.ecs_service](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/cloudwatch_log_group) | resource |
-| [aws_ecs_service.ecs_service](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/ecs_service) | resource |
-| [aws_ecs_task_definition.ecs_service](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/ecs_task_definition) | resource |
+| [aws_cloudwatch_log_group.this](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/cloudwatch_log_group) | resource |
+| [aws_ecs_service.this](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/ecs_service) | resource |
+| [aws_ecs_task_definition.this](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/ecs_task_definition) | resource |
 | [aws_iam_policy.execute_command](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/iam_policy) | resource |
 | [aws_iam_policy.logs](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/iam_policy) | resource |
 | [aws_iam_policy.read_secrets](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/iam_policy) | resource |
@@ -93,7 +93,7 @@ No modules.
 | <a name="input_deployment_max_health"></a> [deployment\_max\_health](#input\_deployment\_max\_health) | Percentage of max healthy deployment | `number` | `100` | no |
 | <a name="input_deployment_min_health"></a> [deployment\_min\_health](#input\_deployment\_min\_health) | Percentage of min healthy deployment. It's recommended to set it > 0 for highly available workloads. | `number` | `0` | no |
 | <a name="input_desired_replicas"></a> [desired\_replicas](#input\_desired\_replicas) | Desired number of replicas | `number` | `1` | no |
-| <a name="input_efs_volumes"></a> [efs\_volumes](#input\_efs\_volumes) | Map of EFS volumes to mount | <pre>map(object({<br>    fs_id           = string<br>    root            = string<br>    access_point_id = string<br>  }))</pre> | n/a | yes |
+| <a name="input_efs_volumes"></a> [efs\_volumes](#input\_efs\_volumes) | Map of EFS volumes to mount | <pre>map(object({<br>    fs_id           = string<br>    root            = string<br>    access_point_id = string<br>  }))</pre> | `{}` | no |
 | <a name="input_env_vars"></a> [env\_vars](#input\_env\_vars) | Environment variables. Map is in the format 'ENV\_KEY' => 'ENV\_VALUE' | `map(string)` | `{}` | no |
 | <a name="input_health_startup_delay_seconds"></a> [health\_startup\_delay\_seconds](#input\_health\_startup\_delay\_seconds) | Seconds to ignore failing load balancer health checks on newly instantiated tasks to prevent premature shutdown. Only valid for LB-exposed services. | `number` | `180` | no |
 | <a name="input_image"></a> [image](#input\_image) | Container image to be deployed. | `string` | n/a | yes |

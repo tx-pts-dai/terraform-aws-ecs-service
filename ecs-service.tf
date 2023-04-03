@@ -1,11 +1,21 @@
-resource "aws_cloudwatch_log_group" "ecs_service" {
+moved {
+  from = aws_cloudwatch_log_group.ecs_service
+  to   = aws_cloudwatch_log_group.this
+}
+
+resource "aws_cloudwatch_log_group" "this" {
   name = var.name
   # Possible retention setting
   # [0 1 3 5 7 14 30 60 90 120 150 180 365 400 545 731 1827 3653]
   retention_in_days = 7
 }
 
-resource "aws_ecs_task_definition" "ecs_service" {
+moved {
+  from = aws_ecs_task_definition.ecs_service
+  to   = aws_ecs_task_definition.this
+}
+
+resource "aws_ecs_task_definition" "this" {
   family                   = var.name
   network_mode             = "awsvpc"
   requires_compatibilities = ["FARGATE"]
@@ -28,7 +38,7 @@ resource "aws_ecs_task_definition" "ecs_service" {
       logConfiguration = {
         logDriver = "awslogs"
         options = {
-          awslogs-group         = aws_cloudwatch_log_group.ecs_service.name
+          awslogs-group         = aws_cloudwatch_log_group.this.name
           awslogs-region        = "eu-west-1"
           awslogs-stream-prefix = "ecs"
         }
@@ -61,10 +71,16 @@ resource "aws_ecs_task_definition" "ecs_service" {
   tags = var.tags
 }
 
-resource "aws_ecs_service" "ecs_service" {
+
+moved {
+  from = aws_ecs_service.ecs_service
+  to   = aws_ecs_service.this
+}
+
+resource "aws_ecs_service" "this" {
   name                   = var.name
   cluster                = var.cluster_id
-  task_definition        = aws_ecs_task_definition.ecs_service.arn
+  task_definition        = aws_ecs_task_definition.this.arn
   launch_type            = "FARGATE"
   scheduling_strategy    = "REPLICA"
   desired_count          = var.desired_replicas
