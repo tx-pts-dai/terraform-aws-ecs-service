@@ -1,3 +1,5 @@
+data "aws_region" "current" {}
+
 moved {
   from = aws_cloudwatch_log_group.ecs_service
   to   = aws_cloudwatch_log_group.this
@@ -39,7 +41,7 @@ resource "aws_ecs_task_definition" "this" {
         logDriver = "awslogs"
         options = {
           awslogs-group         = aws_cloudwatch_log_group.this.name
-          awslogs-region        = "eu-west-1"
+          awslogs-region        = data.aws_region.current.name
           awslogs-stream-prefix = "ecs"
         }
       }
@@ -54,13 +56,11 @@ resource "aws_ecs_task_definition" "this" {
       name = volume.key
 
       efs_volume_configuration {
-        # file_system_id          = aws_efs_file_system.fs.id
         file_system_id          = volume.value.fs_id
         root_directory          = volume.value.root
         transit_encryption      = "ENABLED"
         transit_encryption_port = 2999
         authorization_config {
-          # access_point_id = aws_efs_access_point.test.id
           access_point_id = volume.value.access_point_id
           iam             = "ENABLED"
         }
