@@ -91,9 +91,9 @@ variable "health_startup_delay_seconds" {
 variable "efs_volumes" {
   description = "Map of EFS volumes to mount"
   type = map(object({
-    fs_id = string
-    root  = string
-    # access_point_id = optional(string)
+    fs_id           = string
+    root            = string
+    access_point_id = optional(string)
   }))
   default = {}
 }
