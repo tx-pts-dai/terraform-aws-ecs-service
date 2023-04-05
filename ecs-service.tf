@@ -56,14 +56,15 @@ resource "aws_ecs_task_definition" "this" {
       name = volume.key
 
       efs_volume_configuration {
-        file_system_id          = volume.value.fs_id
-        root_directory          = volume.value.root
-        transit_encryption      = "ENABLED"
-        transit_encryption_port = 2999
-        authorization_config {
-          access_point_id = volume.value.access_point_id
-          iam             = "ENABLED"
-        }
+        file_system_id = volume.value.fs_id
+        root_directory = volume.value.root
+        # OPTIONAL PARAMS: Disabled for now
+        # transit_encryption      = "ENABLED"
+        # transit_encryption_port = 2999
+        # authorization_config {
+        #   access_point_id = volume.value.access_point_id
+        #   iam             = "ENABLED"
+        # }
       }
     }
   }
