@@ -35,7 +35,7 @@ resource "aws_ecs_task_definition" "this" {
         containerPort = var.container_port
       }]
       mountPoints = [for name, volume in var.efs_volumes : {
-        containerPath = volume.root
+        containerPath = volume.mounted_at
         sourceVolume  = name
       }]
       linuxParameters = {
@@ -60,15 +60,9 @@ resource "aws_ecs_task_definition" "this" {
       name = volume.key
 
       efs_volume_configuration {
-        file_system_id = volume.value.fs_id
-        # root_directory = volume.value.root
-        # OPTIONAL PARAMS: Disabled for now
-        # transit_encryption      = "ENABLED"
-        # transit_encryption_port = 2999
-        # authorization_config {
-        #   access_point_id = volume.value.access_point_id
-        #   iam             = "ENABLED"
-        # }
+        file_system_id     = volume.value.fs_id
+        root_directory     = volume.value.mountable_root
+        transit_encryption = "ENABLED"
       }
     }
   }

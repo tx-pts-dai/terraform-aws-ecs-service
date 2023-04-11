@@ -92,7 +92,8 @@ variable "efs_volumes" {
   description = "Map of EFS volumes to mount"
   type = map(object({
     fs_id           = string
-    root            = string
+    mounted_at      = string                # the directory to which the EFS volume will be mounted at
+    mountable_root  = optional(string, "/") # the directory in the EFS volume to be mounted inside the container
     access_point_id = optional(string)
   }))
   default = {}
