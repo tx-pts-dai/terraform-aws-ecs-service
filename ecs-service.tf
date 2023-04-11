@@ -34,6 +34,10 @@ resource "aws_ecs_task_definition" "this" {
         protocol      = "tcp"
         containerPort = var.container_port
       }]
+      mountPoints = [for name, volume in var.efs_volumes : {
+        containerPath = volume.root
+        sourceVolume  = name
+      }]
       linuxParameters = {
         initProcessEnabled = true
       }
