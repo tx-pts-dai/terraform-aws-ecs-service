@@ -61,7 +61,7 @@ resource "aws_ecs_task_definition" "this" {
 
       efs_volume_configuration {
         file_system_id = volume.value.fs_id
-        root_directory = volume.value.root
+        # root_directory = volume.value.root
         # OPTIONAL PARAMS: Disabled for now
         # transit_encryption      = "ENABLED"
         # transit_encryption_port = 2999
