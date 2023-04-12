@@ -20,7 +20,7 @@ Here's an example of how you can use the module by specifying the required param
 
 ```tf
 module "hello_world" {
-  source     = "github.com/tx-pts-dai/terraform-aws-ecs-service?ref=FUM-2424-create-ecs-service-module"
+  source     = "github.com/tx-pts-dai/terraform-aws-ecs-service?ref=v0.1.0"
   cluster_id = aws_ecs_cluster.my_cluster.id
   subnet_ids = [
     "subnet-abcdef12",
@@ -35,20 +35,58 @@ module "hello_world" {
 }
 ```
 
-## Explanation and description of interesting use-cases
+### Attach the service to a Load Balancer Target Group
 
-The simplest use case is that you want to deploy a container in ECS. This module should help you in achieving that.
+Define your target group and then attach it via the `lb_target_group_arn` parameter.
 
-## Examples (TODO)
+```tf
+# This example is for demonstrative purposes only.
+resource "aws_lb_target_group" "hello_world" {
+  name                 = "helloworld"
+  port                 = 8080
+  protocol             = "HTTP"
+  target_type          = "ip"
+  vpc_id               = vpc-012362ae3
+}
 
-< if the folder `examples/` exists, put here the link to the examples subfolders with their descriptions >
+module "hello_world" {
+  ...
+  lb_target_group_arn = aws_lb_target_group.hello_world.arn
+}
+```
 
+### Attach an existing EFS volume
 
-## Pre-Commit
+Using the `efs_volumes` parameter, you can attach as many EFS you want to the ECS service. They will be mounted inside the container at the specified `mounted_at` parameter.
 
-Installation: [install pre-commit](https://pre-commit.com/) and execute `pre-commit install`. This will generate pre-commit hooks according to the config in `.pre-commit-config.yaml`
+```tf
+resource "aws_efs_file_system" "hello_world" {}
 
-Before submitting a PR be sure to have used the pre-commit hooks or run: `pre-commit run -a`
+module "hello_world" {
+  ...
+  efs_volumes = {
+    workspace = {
+      fs_id      = aws_efs_file_system.hello_world.id
+      mounted_at = "/data/workspace"
+    }
+  }
+}
+```
+
+## Live examples
+
+- <https://github.com/tx-pts-dai/ness-nebula-app>
+- <https://github.com/tx-pts-dai/ness-claro-statistic-app> (coming soon)
+
+## Development
+
+If you want to contribute to this module we recommend installing the pre-commit actions for formatting and validating your Terraform code. How?
+
+1. [Install pre-commit](https://pre-commit.com/)
+2. Execute `pre-commit install`. (This will generate pre-commit hooks according to the config in `.pre-commit-config.yaml`)
+3. Before each commit, validation will happen automatically now (uninstall with `pre-commit uninstall`)
+
+If you don't want this to run automatically you can trigger it yourself via: `pre-commit run -a`
 
 The `pre-commit` command will run:
 
