@@ -39,6 +39,16 @@ variable "desired_replicas" {
   default     = 1
 }
 
+variable "log_retention_in_days" {
+  description = "How long to keep container logs in CloudWatch (0 1 3 5 7 14 30 60 90 120 150 180 365 400 545 731 1827 3653)"
+  type        = number
+  default     = 7
+  validation {
+    condition     = try(index([0, 1, 3, 5, 7, 14, 30, 60, 90, 120, 150, 180, 365, 400, 545, 731, 1827, 3653], var.log_retention_in_days), -1) != -1
+    error_message = "The retention must be in the [0, 1, 3, 5, 7, 14, 30, 60, 90, 120, 150, 180, 365, 400, 545, 731, 1827, 3653] range"
+  }
+}
+
 variable "deployment_min_health" {
   description = "Percentage of min healthy deployment. It's recommended to set it > 0 for highly available workloads."
   type        = number
