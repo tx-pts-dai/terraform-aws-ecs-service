@@ -98,3 +98,9 @@ variable "efs_volumes" {
   }))
   default = {}
 }
+
+variable "extra_iam_policies" {
+  description = "List of IAM policy ARNs to be attached to the IAM role impersonated by the ECS Task"
+  type        = list(string)
+  default     = []
+}

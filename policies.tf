@@ -99,3 +99,10 @@ resource "aws_iam_role_policy_attachment" "execute_command" {
   role       = aws_iam_role.this.name
   policy_arn = aws_iam_policy.execute_command.arn
 }
+
+# Custom policies passed to module through variables
+resource "aws_iam_role_policy_attachment" "extra" {
+  for_each   = var.extra_iam_policies
+  role       = aws_iam_role.this.name
+  policy_arn = each.value
+}
