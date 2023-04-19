@@ -27,9 +27,10 @@ resource "aws_ecs_task_definition" "this" {
   task_role_arn            = aws_iam_role.this.arn
   container_definitions = jsonencode([
     {
-      name      = var.name
-      image     = var.image
-      essential = true
+      name        = var.name
+      image       = var.image
+      essential   = true
+      stopTimeout = var.stop_timeout
       portMappings = [{
         protocol      = "tcp"
         containerPort = var.container_port

@@ -114,3 +114,13 @@ variable "extra_iam_policies" {
   type        = list(string)
   default     = []
 }
+
+variable "stop_timeout" {
+  description = "Seconds to wait before force killing a container"
+  type        = number
+  validation {
+    condition     = var.stop_timeout >= 0 && var.stop_timeout <= 120
+    error_message = "value should be between 0 and 120"
+  }
+  default = 30
+}
