@@ -102,7 +102,7 @@ resource "aws_iam_role_policy_attachment" "execute_command" {
 
 # Custom policies passed to module through variables
 resource "aws_iam_role_policy_attachment" "extra" {
-  for_each   = var.extra_iam_policies
+  for_each   = { for v, k in var.extra_iam_policies : v => k }
   role       = aws_iam_role.this.name
   policy_arn = each.value
 }
