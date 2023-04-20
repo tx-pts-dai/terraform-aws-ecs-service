@@ -110,9 +110,9 @@ variable "efs_volumes" {
 }
 
 variable "extra_iam_policies" {
-  description = "List of IAM policy ARNs to be attached to the IAM role impersonated by the ECS Task"
-  type        = list(string)
-  default     = []
+  description = "Map of IAM policy ARNs to be attached to the IAM role impersonated by the ECS Task. (e.g. 's3_access' => aws_iam_policy.s3_access.arn)"
+  type        = map(string)
+  default     = {}
 }
 
 variable "stop_timeout" {
