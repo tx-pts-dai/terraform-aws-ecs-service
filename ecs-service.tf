@@ -85,6 +85,7 @@ resource "aws_ecs_service" "this" {
   scheduling_strategy    = "REPLICA"
   desired_count          = var.desired_replicas
   enable_execute_command = true
+  wait_for_steady_state  = true
 
   health_check_grace_period_seconds = (var.lb_target_group_arn != null) ? var.health_startup_delay_seconds : null
 
