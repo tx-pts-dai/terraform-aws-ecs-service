@@ -87,6 +87,15 @@ resource "aws_ecs_service" "this" {
   enable_execute_command = true
   wait_for_steady_state  = true
 
+  dynamic "deployment_circuit_breaker" {
+    for_each = (var.deployment_circuit_breaker != null) ? [var.deployment_circuit_breaker] : []
+
+    content {
+      enable   = deployment_circuit_breaker.value.enable
+      rollback = deployment_circuit_breaker.value.rollback
+    }
+  }
+
   health_check_grace_period_seconds = (var.lb_target_group_arn != null) ? var.health_startup_delay_seconds : null
 
   deployment_maximum_percent         = var.deployment_max_health
@@ -114,4 +123,14 @@ resource "aws_ecs_service" "this" {
   }
 
   tags = var.tags
+
+  dynamic "timeouts" {
+    for_each = (var.provider_timeouts != null) ? [var.provider_timeouts] : []
+
+    content {
+      create = timeouts.value.create
+      update = timeouts.value.update
+      delete = timeouts.value.delete
+    }
+  }
 }

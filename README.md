@@ -147,6 +147,7 @@ No modules.
 | <a name="input_container_cpu"></a> [container\_cpu](#input\_container\_cpu) | The number of milli-cpu units reserved for each replica | `number` | n/a | yes |
 | <a name="input_container_memory"></a> [container\_memory](#input\_container\_memory) | The amount (in MiB) of memory reserved for each replica | `number` | n/a | yes |
 | <a name="input_container_port"></a> [container\_port](#input\_container\_port) | Container port | `number` | n/a | yes |
+| <a name="input_deployment_circuit_breaker"></a> [deployment\_circuit\_breaker](#input\_deployment\_circuit\_breaker) | (Optional) Configuration block for deployment circuit breaker | <pre>object({<br>    enable   = optional(bool, true)<br>    rollback = optional(bool, true)<br>  })</pre> | `{}` | no |
 | <a name="input_deployment_max_health"></a> [deployment\_max\_health](#input\_deployment\_max\_health) | Percentage of max healthy deployment | `number` | `100` | no |
 | <a name="input_deployment_min_health"></a> [deployment\_min\_health](#input\_deployment\_min\_health) | Percentage of min healthy deployment. It's recommended to set it > 0 for highly available workloads. | `number` | `0` | no |
 | <a name="input_desired_replicas"></a> [desired\_replicas](#input\_desired\_replicas) | Desired number of replicas | `number` | `1` | no |
@@ -158,6 +159,7 @@ No modules.
 | <a name="input_lb_target_group_arn"></a> [lb\_target\_group\_arn](#input\_lb\_target\_group\_arn) | Load Balancer's Target Group ARN to attach to this service. Don't provide it if it doesn't need to be accessed from outside | `string` | `null` | no |
 | <a name="input_log_retention_in_days"></a> [log\_retention\_in\_days](#input\_log\_retention\_in\_days) | How long to keep container logs in CloudWatch (0 1 3 5 7 14 30 60 90 120 150 180 365 400 545 731 1827 3653) | `number` | `7` | no |
 | <a name="input_name"></a> [name](#input\_name) | The ECS service name | `string` | n/a | yes |
+| <a name="input_provider_timeouts"></a> [provider\_timeouts](#input\_provider\_timeouts) | Create, update, and delete timeouts for the provider (if operation takes longer, terraform will fail) | <pre>object({<br>    create = optional(string, "5m")<br>    update = optional(string, "5m")<br>    delete = optional(string, "5m")<br>  })</pre> | `{}` | no |
 | <a name="input_secrets"></a> [secrets](#input\_secrets) | Secret Environment variables. Map is in the format 'ENV\_KEY' => 'SECRET\_ARN' | `map(string)` | `{}` | no |
 | <a name="input_security_groups"></a> [security\_groups](#input\_security\_groups) | Security groups to be attached to the task | `list(string)` | `[]` | no |
 | <a name="input_stop_timeout"></a> [stop\_timeout](#input\_stop\_timeout) | Seconds to wait before force killing a container | `number` | `30` | no |
