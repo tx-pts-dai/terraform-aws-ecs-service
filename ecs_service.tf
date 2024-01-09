@@ -1,20 +1,10 @@
 data "aws_region" "current" {}
 
-moved {
-  from = aws_cloudwatch_log_group.ecs_service
-  to   = aws_cloudwatch_log_group.this
-}
-
 resource "aws_cloudwatch_log_group" "this" {
   name = var.name
   # Possible retention setting
   # [0 1 3 5 7 14 30 60 90 120 150 180 365 400 545 731 1827 3653]
   retention_in_days = var.log_retention_in_days
-}
-
-moved {
-  from = aws_ecs_task_definition.ecs_service
-  to   = aws_ecs_task_definition.this
 }
 
 resource "aws_ecs_task_definition" "this" {
@@ -71,12 +61,6 @@ resource "aws_ecs_task_definition" "this" {
   tags = var.tags
 }
 
-
-moved {
-  from = aws_ecs_service.ecs_service
-  to   = aws_ecs_service.this
-}
-
 resource "aws_ecs_service" "this" {
   name                   = var.name
   cluster                = var.cluster_id
@@ -86,6 +70,15 @@ resource "aws_ecs_service" "this" {
   desired_count          = var.desired_replicas
   enable_execute_command = true
   wait_for_steady_state  = true
+
+  dynamic "deployment_circuit_breaker" {
+    for_each = (var.deployment_circuit_breaker != null) ? [var.deployment_circuit_breaker] : []
+
+    content {
+      enable   = deployment_circuit_breaker.value.enable
+      rollback = deployment_circuit_breaker.value.rollback
+    }
+  }
 
   health_check_grace_period_seconds = (var.lb_target_group_arn != null) ? var.health_startup_delay_seconds : null
 
@@ -114,4 +107,14 @@ resource "aws_ecs_service" "this" {
   }
 
   tags = var.tags
+
+  dynamic "timeouts" {
+    for_each = (var.service_timeouts != null) ? [var.service_timeouts] : []
+
+    content {
+      create = timeouts.value.create
+      update = timeouts.value.update
+      delete = timeouts.value.delete
+    }
+  }
 }
