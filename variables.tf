@@ -127,20 +127,27 @@ variable "stop_timeout" {
 
 
 variable "deployment_circuit_breaker" {
-  description = "(Optional) Configuration block for deployment circuit breaker"
+  description = "Configuration block for deployment circuit breaker"
   type = object({
     enable   = optional(bool, true)
     rollback = optional(bool, true)
   })
-  default = {}
+  default = {
+    enable   = true
+    rollback = true
+  }
 }
 
 variable "service_timeouts" {
-  description = "Create, update, and delete timeouts for the provider (if operation takes longer, terraform will fail)"
+  description = "Create, update, and delete timeouts for the provider. If operation takes longer, terraform will fail"
   type = object({
     create = optional(string, "5m")
     update = optional(string, "5m")
     delete = optional(string, "5m")
   })
-  default = {}
+  default = {
+    created = "5m"
+    update  = "5m"
+    delete  = "5m"
+  }
 }
