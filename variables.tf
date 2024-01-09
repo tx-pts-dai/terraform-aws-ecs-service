@@ -132,10 +132,7 @@ variable "deployment_circuit_breaker" {
     enable   = optional(bool, true)
     rollback = optional(bool, true)
   })
-  default = {
-    enable   = true
-    rollback = true
-  }
+  default = {}
 }
 
 variable "service_timeouts" {
@@ -145,9 +142,5 @@ variable "service_timeouts" {
     update = optional(string, "5m")
     delete = optional(string, "5m")
   })
-  default = {
-    created = "5m"
-    update  = "5m"
-    delete  = "5m"
-  }
+  default = {}
 }

@@ -147,7 +147,7 @@ No modules.
 | <a name="input_container_cpu"></a> [container\_cpu](#input\_container\_cpu) | The number of milli-cpu units reserved for each replica | `number` | n/a | yes |
 | <a name="input_container_memory"></a> [container\_memory](#input\_container\_memory) | The amount (in MiB) of memory reserved for each replica | `number` | n/a | yes |
 | <a name="input_container_port"></a> [container\_port](#input\_container\_port) | Container port | `number` | n/a | yes |
-| <a name="input_deployment_circuit_breaker"></a> [deployment\_circuit\_breaker](#input\_deployment\_circuit\_breaker) | Configuration block for deployment circuit breaker | <pre>object({<br>    enable   = optional(bool, true)<br>    rollback = optional(bool, true)<br>  })</pre> | <pre>{<br>  "enable": true,<br>  "rollback": true<br>}</pre> | no |
+| <a name="input_deployment_circuit_breaker"></a> [deployment\_circuit\_breaker](#input\_deployment\_circuit\_breaker) | Configuration block for deployment circuit breaker | <pre>object({<br>    enable   = optional(bool, true)<br>    rollback = optional(bool, true)<br>  })</pre> | `{}` | no |
 | <a name="input_deployment_max_health"></a> [deployment\_max\_health](#input\_deployment\_max\_health) | Percentage of max healthy deployment | `number` | `100` | no |
 | <a name="input_deployment_min_health"></a> [deployment\_min\_health](#input\_deployment\_min\_health) | Percentage of min healthy deployment. It's recommended to set it > 0 for highly available workloads. | `number` | `0` | no |
 | <a name="input_desired_replicas"></a> [desired\_replicas](#input\_desired\_replicas) | Desired number of replicas | `number` | `1` | no |
@@ -161,7 +161,7 @@ No modules.
 | <a name="input_name"></a> [name](#input\_name) | The ECS service name | `string` | n/a | yes |
 | <a name="input_secrets"></a> [secrets](#input\_secrets) | Secret Environment variables. Map is in the format 'ENV\_KEY' => 'SECRET\_ARN' | `map(string)` | `{}` | no |
 | <a name="input_security_groups"></a> [security\_groups](#input\_security\_groups) | Security groups to be attached to the task | `list(string)` | `[]` | no |
-| <a name="input_service_timeouts"></a> [service\_timeouts](#input\_service\_timeouts) | Create, update, and delete timeouts for the provider. If operation takes longer, terraform will fail | <pre>object({<br>    create = optional(string, "5m")<br>    update = optional(string, "5m")<br>    delete = optional(string, "5m")<br>  })</pre> | <pre>{<br>  "created": "5m",<br>  "delete": "5m",<br>  "update": "5m"<br>}</pre> | no |
+| <a name="input_service_timeouts"></a> [service\_timeouts](#input\_service\_timeouts) | Create, update, and delete timeouts for the provider. If operation takes longer, terraform will fail | <pre>object({<br>    create = optional(string, "5m")<br>    update = optional(string, "5m")<br>    delete = optional(string, "5m")<br>  })</pre> | `{}` | no |
 | <a name="input_stop_timeout"></a> [stop\_timeout](#input\_stop\_timeout) | Seconds to wait before force killing a container | `number` | `30` | no |
 | <a name="input_subnet_ids"></a> [subnet\_ids](#input\_subnet\_ids) | Subnets where the task will be run in. Most of the times you want to use your private ones. | `list(string)` | n/a | yes |
 | <a name="input_tags"></a> [tags](#input\_tags) | The tags for the resources | `map(string)` | `{}` | no |
