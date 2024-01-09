@@ -159,9 +159,9 @@ No modules.
 | <a name="input_lb_target_group_arn"></a> [lb\_target\_group\_arn](#input\_lb\_target\_group\_arn) | Load Balancer's Target Group ARN to attach to this service. Don't provide it if it doesn't need to be accessed from outside | `string` | `null` | no |
 | <a name="input_log_retention_in_days"></a> [log\_retention\_in\_days](#input\_log\_retention\_in\_days) | How long to keep container logs in CloudWatch (0 1 3 5 7 14 30 60 90 120 150 180 365 400 545 731 1827 3653) | `number` | `7` | no |
 | <a name="input_name"></a> [name](#input\_name) | The ECS service name | `string` | n/a | yes |
-| <a name="input_provider_timeouts"></a> [provider\_timeouts](#input\_provider\_timeouts) | Create, update, and delete timeouts for the provider (if operation takes longer, terraform will fail) | <pre>object({<br>    create = optional(string, "5m")<br>    update = optional(string, "5m")<br>    delete = optional(string, "5m")<br>  })</pre> | `{}` | no |
 | <a name="input_secrets"></a> [secrets](#input\_secrets) | Secret Environment variables. Map is in the format 'ENV\_KEY' => 'SECRET\_ARN' | `map(string)` | `{}` | no |
 | <a name="input_security_groups"></a> [security\_groups](#input\_security\_groups) | Security groups to be attached to the task | `list(string)` | `[]` | no |
+| <a name="input_service_timeouts"></a> [service\_timeouts](#input\_service\_timeouts) | Create, update, and delete timeouts for the provider (if operation takes longer, terraform will fail) | <pre>object({<br>    create = optional(string, "5m")<br>    update = optional(string, "5m")<br>    delete = optional(string, "5m")<br>  })</pre> | `{}` | no |
 | <a name="input_stop_timeout"></a> [stop\_timeout](#input\_stop\_timeout) | Seconds to wait before force killing a container | `number` | `30` | no |
 | <a name="input_subnet_ids"></a> [subnet\_ids](#input\_subnet\_ids) | Subnets where the task will be run in. Most of the times you want to use your private ones. | `list(string)` | n/a | yes |
 | <a name="input_tags"></a> [tags](#input\_tags) | The tags for the resources | `map(string)` | `{}` | no |
