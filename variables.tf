@@ -135,7 +135,7 @@ variable "deployment_circuit_breaker" {
   default = {}
 }
 
-variable "provider_timeouts" {
+variable "service_timeouts" {
   description = "Create, update, and delete timeouts for the provider (if operation takes longer, terraform will fail)"
   type = object({
     create = optional(string, "5m")
