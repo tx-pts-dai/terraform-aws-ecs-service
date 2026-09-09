@@ -1,29 +1,10 @@
 {
+  "$schema": "https://docs.renovatebot.com/renovate-schema.json",
   "extends": [
-    "config:recommended",
-    "schedule:nonOfficeHours"
+    "github>tx-pts-dai/renovate-config"
   ],
-  "enabledManagers": [
-    "terraform",
-    "github-actions"
+  "schedule": [
+    "after 9am on Monday"
   ],
-  "updateNotScheduled": false,
-  "commitBodyTable": true,
-  "dependencyDashboard": true,
-  "ignoreDeprecated": true,
-  "ignoreUnstable": true,
-  "reviewersFromCodeOwners": true,
-  "prCreation": "immediate",
-  "rebaseWhen": "conflicted",
-  "packageRules": [
-    {
-      "matchUpdateTypes": [
-        "minor",
-        "patch",
-        "pin",
-        "digest"
-      ],
-      "automerge": false
-    }
-  ]
+  "automergeStrategy": "squash"
 }
